@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/HADDADSOHAIB/natours-node/issues"
   },
-  "homepage": "https://github.com/HADDADSOHAIB/natours-node#readme"
+  "homepage": "https://github.com/HADDADSOHAIB/natours-node#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
