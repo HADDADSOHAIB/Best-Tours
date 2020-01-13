@@ -20,6 +20,7 @@ exports.checkBody=(req,res,next)=>{
             message:'fix the price or name of the tour'
         });
     }
+    else
     next();
 }
 

@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/HADDADSOHAIB/natours-node#readme",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "mongoose": "^5.8.7",
     "morgan": "^1.9.1"
   }
 }
