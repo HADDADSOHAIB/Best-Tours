@@ -1,8 +1,9 @@
 const dotenv=require('dotenv');
 dotenv.config({path:'./config.env'});
+
 const mongoose=require('mongoose');
 const app=require('./app');
-const port=process.env.PORT;
+
 mongoose.connect(process.env.DB,{
     useNewUrlParser:true,
     useCreateIndex:true,
@@ -14,8 +15,9 @@ mongoose.connect(process.env.DB,{
     console.log("connection to db failer");
     console.log(err);
 });
-// console.log(process.env);
 
+
+const port=process.env.PORT || 3000;
 app.listen(port, ()=>{
     console.log(`running on port ${port}`);
 });
