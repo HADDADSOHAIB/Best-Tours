@@ -1,17 +1,6 @@
 const fs=require('fs');
 const Tour=require('./../models/tourModel');
 
-exports.checkId=(req,res,next,val)=>{
-    const tour= await Tour.findById(req.params.id);
-    if(!tour){
-        res.status(404).json({
-            status:'not found'
-        });
-    }
-    else
-    next();
-}
-
 exports.getAllTours=async (req,res)=>{
     try{
     const tours=await Tour.find();
@@ -84,3 +73,18 @@ exports.updateTour=async (req,res)=>{
         });
     }
 }
+
+exports.deleteTour=async (req,res)=>{
+    try{
+        await Tour.findByIdAndDelete(req.params.id);
+        res.status(204).json({
+            status:'success'
+        })
+    } catch(err){
+        res.status(400).json({
+            status:'fail',
+            message:err
+        });
+    }
+}
+
