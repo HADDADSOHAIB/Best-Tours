@@ -9,7 +9,11 @@ exports.getAllTours=async (req,res)=>{
         let queryStr=JSON.stringify(queryObj);
         queryStr=queryStr.replace(/\b(gte|gt|lte|lt)\b/g,match=>`$${match}`);
         queryObj=JSON.parse(queryStr);
-        const query=Tour.find(queryObj);
+        let query=Tour.find(queryObj);
+        if(req.query.sort){
+            const sortBy=req.query.sort.split(',').join(' ');
+            quey=query.sort(sortBy);
+        }
         const tours=await query;
         res.status(200).json({
             status:'succes',
