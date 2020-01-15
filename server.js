@@ -1,6 +1,12 @@
 const dotenv=require('dotenv');
 dotenv.config({path:'./config.env'});
 
+process.on('uncaughtException',err=>{
+    // console.log(err.name,err.message);
+    console.log(err);
+    process.exit(1);
+});
+
 const mongoose=require('mongoose');
 const app=require('./app');
 
@@ -12,12 +18,19 @@ mongoose.connect(process.env.DB,{
 }).then(conn=>{
     console.log("db connections is runnig with success");
 }).catch((err)=>{
-    console.log("connection to db failer");
-    console.log(err);
+    console.log("connection to db failed");
+    console.log(err.name,err.message);
 });
 
-
 const port=process.env.PORT || 3000;
-app.listen(port, ()=>{
+const server=app.listen(port, ()=>{
     console.log(`running on port ${port}`);
+});
+
+process.on('unhandledRejection',err=>{
+    // console.log(err.name,err.message);
+    console.log(err);
+    server.close(()=>{
+        process.exit(1);
+    });
 });
