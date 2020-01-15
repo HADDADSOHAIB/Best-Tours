@@ -7,7 +7,7 @@ const tourController=require('../controllers/tourController');
 router
     .route('/tour-stats')
     .get(tourController.getTourStats); 
-    router
+router
     .route('/monthly-plan/:year')
     .get(tourController.getMonthlyplan); 
 router
