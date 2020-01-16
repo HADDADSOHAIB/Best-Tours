@@ -1,6 +1,15 @@
+const User=require('./../models/userModel');
 
-
-exports.getAllUsers=(req,res)=>{
+exports.getAllUsers=async (req,res)=>{
+    const users=await User.find();
+    res.status(200).json({
+        status:'succes',
+        results:users.length,
+        data:{
+            users
+        }
+    });
+    
     res.status(500).json({
         status: 'error',
         message:'this route is not yet defined'
