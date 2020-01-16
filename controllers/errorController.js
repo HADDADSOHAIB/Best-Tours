@@ -5,6 +5,8 @@ module.exports=(err, req, res, next)=>{
     err.statusCode=err.statusCode || 500;
     err.status=err.status || 'error';
 
+    const handelJWTError=()=>new AppError('Invalid Token, log in again',401);
+    const handelTokenExpiredError=()=>new AppError('Token expired, please log again',401);
     const handelCastErrorDb=err=>{
         const message= `Invalid ${err.path}: ${err.value}`;
         return new AppError(message,400);
@@ -58,6 +60,10 @@ module.exports=(err, req, res, next)=>{
         error=handelDuplicateFieldsDB(error);
         else if(error.name==='ValidationError')
         error=handelValidationErrorDB(error);
+        else if(error.name==='JsonWebTokenError')
+        error=handelJWTError();
+        else if(error.name==='TokenExpiredError')
+        error=handelTokenExpiredError();
 
         sendErrorProd(error,res);
     }
