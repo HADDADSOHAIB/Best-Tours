@@ -57,15 +57,24 @@ exports.protect=catchAsync(async (req,res,next)=>{
     if(!token){
         return next(new AppError('You are not logged in',401));
     }
-    const decoded=await promisify(jwt.verify(token,process.env.JWT_SECRET));
+    const decoded=await promisify(jwt.verify)(token,process.env.JWT_SECRET);
     const freshUser=await User.findById(decoded.id);
     if(!freshUser){
-        return next(new AppError('This account does not exist, loging again',401));
+        return next(new AppError('This account does not exist, login again',401));
     }
     
     if(freshUser.changedPasswordAfter(decoded.iat)){
-        return next(new AppError('User changed password, please log in again',401));
+        return next(new AppError('User changed password, please login again',401));
     };
     req.user=freshUser;
     next();
 });
+
+exports.restrictTo=(...roles)=>{
+    return catchAsync(async (req,res,next)=>{
+        if(!roles.includes(req.user.role)){
+            return next(new AppError('You do not have permission to perform this action',403));
+        }
+        next();
+    });
+}

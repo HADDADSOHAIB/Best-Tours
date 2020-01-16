@@ -17,6 +17,11 @@ const userSchema=new mongoose.Schema({
     photo:{
         type:String
     },
+    role:{
+        type:String,
+        enum:['user','guide','lead-guide','admin'],
+        default:'user'
+    },
     password:{
         type:String,
         required:[true,'The password is required'],
@@ -37,7 +42,7 @@ const userSchema=new mongoose.Schema({
 });
 
 userSchema.pre('save',async function(next){
-    if(!this.isModified(this.password)) return next();
+    if(!this.isModified('password')) return next();
     this.password=await bcrypt.hash(this.password,12);
     this.confirmPassword=undefined;
     next();
@@ -47,7 +52,7 @@ userSchema.methods.correctPassword=async function(candidatPassword,userPassword)
     return await bcrypt.compare(candidatPassword,userPassword);
 }
 
-userSchema.methods.changedPasswordAfter=async function(jwtTimestamp){
+userSchema.methods.changedPasswordAfter=function(jwtTimestamp){
     if(this.passwordChangedAt){
         const changedTimestamp=parseInt(this.passwordChangedAt.getTime()/1000,10);
         return jwtTimestamp<changedTimestamp;
