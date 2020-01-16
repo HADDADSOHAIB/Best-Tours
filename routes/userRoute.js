@@ -5,6 +5,8 @@ const authController=require('../controllers/authController');
 
 router.post('/signup',authController.signup);
 router.post('/login',authController.login);
+router.post('/forgotPassword',authController.forgotPassword);
+router.patch('/restPassword/:token',authController.restPassword);
 router
     .route('/')
     .get(userController.getAllUsers)

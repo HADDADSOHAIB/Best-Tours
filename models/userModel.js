@@ -1,6 +1,7 @@
 const mongoose=require('mongoose');
 const validator=require('validator');
 const bcrypt=require('bcryptjs');
+const crypto=require('crypto');
 
 const userSchema=new mongoose.Schema({
     name:{
@@ -38,7 +39,9 @@ const userSchema=new mongoose.Schema({
             message:'the passwords are identicals'
         }
     },
-    passwordChangedAt:Date
+    passwordChangedAt:Date,
+    passwordRestToken:String,
+    passwordRestExpires:Date
 });
 
 userSchema.pre('save',async function(next){
@@ -58,6 +61,14 @@ userSchema.methods.changedPasswordAfter=function(jwtTimestamp){
         return jwtTimestamp<changedTimestamp;
     }
     return false;
+}
+
+userSchema.methods.createPasswordRestToken=function(){
+    const restToken=crypto.randomBytes(32).toString('hex');
+    this.passwordRestToken=crypto.createHash('sha256').update(restToken).digest('hex');
+    this.passwordRestExpires=Date.now()+10*60*1000;
+
+    return restToken;
 }
 
 module.exports= mongoose.model('User',userSchema);
