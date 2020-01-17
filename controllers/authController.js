@@ -115,10 +115,9 @@ exports.forgotPassword=catchAsync(async (req, res, next)=>{
 
 exports.restPassword=catchAsync( async (req,res,next)=>{
     const hashedToken=crypto.createHash('sha256').update(req.params.token).digest('hex');
-    const user= await User.findOne({ passwordResetToken: hashedToken, passwordRestExpires:{$gt: Date.now()}});
-
+    const user= await User.findOne({ passwordRestToken: hashedToken, passwordRestExpires:{$gt: Date.now()}});
     if(!user){
-        return newt(new AppError('Token Invalid or Expires',400));
+        return next(new AppError('Token Invalid or Expires',400));
     }
     user.password=req.body.password;
     user.confirmPassword=req.body.confirmPassword;
@@ -131,4 +130,20 @@ exports.restPassword=catchAsync( async (req,res,next)=>{
         status:'success',
         token
     })
+});
+
+exports.updatePassword=catchAsync(async (req, res, next)=>{
+    const user=await User.findById(req.user.id).select('+password');
+    if(!(await user.correctPassword(req.body.oldPassword,user.password))){
+        return next(new AppError('the password is wrong.',401));
+    }
+    user.password=req.body.password;
+    user.confirmPassword=req.password.confirmPassword;
+    await user.save();
+
+    const token=signToken(user._id);
+    res.status(200).json({
+        status:'success',
+        token
+    });
 });
