@@ -1,4 +1,5 @@
 const express=require('express');
+const rateLimit=require('express-rate-limit');
 const app=express();
 const morgan=require('morgan');
 const AppError=require('./utils/appError');
@@ -8,6 +9,13 @@ if(process.env.NODE_ENV==='development'){
 }
 app.use(express.json());
 app.use(express.static(`${__dirname}/public`));
+
+const limiter=rateLimit({
+    max:100,
+    windowMs:60*60*1000,
+    message:'Too many request from this ip, try again in 1h'
+});
+app.use('/api',limiter);
 
 const tourRouter=require('./routes/tourRoute');
 const userRouter=require('./routes/userRoute');

@@ -41,7 +41,12 @@ const userSchema=new mongoose.Schema({
     },
     passwordChangedAt:Date,
     passwordRestToken:String,
-    passwordRestExpires:Date
+    passwordRestExpires:Date,
+    active:{
+        type:Boolean,
+        default:true,
+        select:false
+    }
 });
 
 userSchema.pre('save',async function(next){
@@ -77,4 +82,8 @@ userSchema.methods.createPasswordRestToken=function(){
     return restToken;
 }
 
+userSchema.pre(/^find/,function(next){
+    this.find({active:{$ne:false}});
+    next();
+});
 module.exports= mongoose.model('User',userSchema);
