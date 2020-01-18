@@ -17,7 +17,6 @@ exports.getAllTours=catchAsync(async (req,res,next)=>{
         .sort()
         .limitFields()
         .paginate();
-
     const tours=await features.query;
     res.status(200).json({
         status:'succes',
@@ -29,7 +28,7 @@ exports.getAllTours=catchAsync(async (req,res,next)=>{
 });
 
 exports.getTour=catchAsync(async (req,res,next)=>{
-    const tour= await Tour.findById(req.params.id);
+    const tour= await Tour.findById(req.params.id).populate('reviews');
     if(!tour){
         return next(new AppError('No tour found with that id',404));
     }
@@ -44,7 +43,7 @@ exports.getTour=catchAsync(async (req,res,next)=>{
 exports.createTour=catchAsync(async (req,res,next)=>{
     const newTour=await Tour.create(req.body); 
     res.status(201).json({
-        status:'succcess',
+        status:'success',
         data:{
             tour:newTour
         }
@@ -113,6 +112,7 @@ exports.getMonthlyplan=catchAsync(async (req,res,next)=>{
         { $project:{_id: 0 }},
         { $sort:{ numTourStarts: -1 } }
     ]);
+    
     res.status(200).json({
     status:'success',
         data:{
