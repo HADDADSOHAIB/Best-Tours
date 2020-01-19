@@ -7,18 +7,29 @@ router.post('/signup',authController.signup);
 router.post('/login',authController.login);
 router.post('/forgotPassword',authController.forgotPassword);
 router.patch('/restPassword/:token',authController.restPassword);
-router.patch('/updateMyPassword',authController.protect,authController.updatePassword);
-router.patch('/updateMe',authController.protect,userController.updateMe);
-router.patch('/deleteMe',authController.protect,userController.deleteMe);
+router.use(authController.protect);
+router.patch('/updateMyPassword',authController.updatePassword);
+router.patch('/updateMe',userController.updateMe);
+router.patch('/deleteMe',userController.deleteMe);
+router.route('/me').get(userController.getMe,userController.getUser);
 router
     .route('/')
-    .get(userController.getAllUsers)
-    .post(userController.createUser);
+    .get(
+        authController.restrictTo('admin'),
+        userController.getAllUsers
+    );
 
 router
     .route('/:id')
-    .get(userController.getUser)
-    .patch(userController.updateUser)
-    .delete(userController.deleteUser);
+    .get(
+        authController.restrictTo('admin'),
+        userController.getUser
+    ).patch(
+        authController.restrictTo('admin'),
+        userController.updateUser
+    ).delete(
+        authController.restrictTo('admin'),
+        userController.deleteUser
+    );
 
 module.exports=router;

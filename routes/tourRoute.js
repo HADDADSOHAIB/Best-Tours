@@ -19,20 +19,23 @@ router
 router
     .route('/')
     .get(tourController.getAllTours)
-    .post(authController.protect,tourController.createTour);
+    .post(
+        authController.protect,
+        authController.restrictTo('admin','lead-guide'),
+        tourController.createTour
+    );
 
 router
     .route('/:id')
     .get(tourController.getTour)
-    .patch(tourController.updateTour)
-    .delete(authController.protect,authController.restrictTo("admin"),tourController.deleteTour);
-
-// router.route('/:tourId/reviews')
-//     .post(
-//         authController.protect,
-//         authController.restrictTo('user'),
-//         reviewController.createReview
-//     );
-
-
+    .patch(
+        authController.protect,
+        authController.restrictTo('admin','lead-guide'),
+        tourController.updateTour
+    ).delete(
+        authController.protect,
+        authController.restrictTo("admin"),
+        tourController.deleteTour
+    );
+    
 module.exports=router;
