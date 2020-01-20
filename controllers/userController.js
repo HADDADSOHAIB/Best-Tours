@@ -3,6 +3,30 @@ const catchAsync=require('./../utils/catchAsync');
 const AppError=require('./../utils/appError');
 const filterObj=require('./../utils/filterObj');
 const factory=require('./handlerFactory');
+const multer=require('multer');
+
+const multerStorage=multer.diskStorage({
+    destination:(req,file,cb)=>{
+        cb(null,'public/img/users');
+    },
+    filename:(req,file,cb)=>{
+       const ext=file.mimetype.split('/')[1];
+       cb(null,`user-${req.user.id}-${Date.now()}.${ext}`);
+    }
+});
+const multerFilter=(req,file,cb)=>{
+    if(file.mimetype.startsWith('image')){
+        cb(null,true);
+    }
+    else{
+        cb(new AppError('This is not an image, please upload only images',400));
+    }
+}
+const upload=multer({
+    storage:multerStorage,
+    fileFilter: multerFilter
+});
+exports.uploadUserPhoto=upload.single('photo');
 
 exports.getAllUsers=factory.getAll(User);
 exports.getUser=factory.getOne(User);
