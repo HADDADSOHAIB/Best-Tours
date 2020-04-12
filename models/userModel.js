@@ -16,11 +16,11 @@ const userSchema=new mongoose.Schema({
         validate:[validator.isEmail,'Please provide a valid email']
     },
     photo:{
-        type:String,
-        default:'default.jpg'
+        type: String,
+        default: 'default.jpg'
     },
     role:{
-        type:String,
+        type: String,
         enum:['user','guide','lead-guide','admin'],
         default:'user'
     },
@@ -40,9 +40,9 @@ const userSchema=new mongoose.Schema({
             message:'the passwords are identicals'
         }
     },
-    passwordChangedAt:Date,
-    passwordRestToken:String,
-    passwordRestExpires:Date,
+    passwordChangedAt: Date,
+    passwordRestToken: String,
+    passwordRestExpires: Date,
     active:{
         type:Boolean,
         default:true,

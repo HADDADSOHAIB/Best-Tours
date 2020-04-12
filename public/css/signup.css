@@ -1,0 +1,22 @@
+.signup {
+  background: url('../img/bg.jpg');
+  background-size: cover;
+  height: 100vh;
+  position: relative;
+}
+
+.signup .card {
+  width: 20rem;
+  position: absolute;
+  right: 40px;
+  top: 20px;
+}
+
+@media only screen and (max-width: 400px){
+  .signup .card {
+    width: 100%;
+    position: relative;
+    top: 20px;
+    right: 0;
+  }
+}

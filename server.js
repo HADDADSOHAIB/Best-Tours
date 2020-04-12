@@ -1,14 +1,12 @@
+const mongoose=require('mongoose');
+const app=require('./app');
 const dotenv=require('dotenv');
 dotenv.config({path:'./config.env'});
 
 process.on('uncaughtException',err=>{
-    // console.log(err.name,err.message);
     console.log(err);
     process.exit(1);
 });
-
-const mongoose=require('mongoose');
-const app=require('./app');
 
 mongoose.connect(process.env.DB,{
     useNewUrlParser:true,
@@ -23,14 +21,9 @@ mongoose.connect(process.env.DB,{
 });
 
 const port=process.env.PORT || 3000;
-const server=app.listen(port, ()=>{
-    console.log(`running on port ${port}`);
-});
+const server=app.listen(port, () => console.log(`running on port ${port}`));
 
-process.on('unhandledRejection',err=>{
-    // console.log(err.name,err.message);
+process.on('unhandledRejection',err => {
     console.log(err);
-    server.close(()=>{
-        process.exit(1);
-    });
+    server.close(() => process.exit(1));
 });

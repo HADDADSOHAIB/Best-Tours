@@ -13,27 +13,12 @@ router.patch('/updateMe',userController.uploadUserPhoto,userController.updateMe)
 router.patch('/deleteMe',userController.deleteMe);
 router.route('/me').get(
     userController.getMe,
-    userController.
     userController.getUser
 );
-router
-    .route('/')
-    .get(
-        authController.restrictTo('admin'),
-        userController.getAllUsers
-    );
+router.route('/').get(userController.getAllUsers);
 
-router
-    .route('/:id')
-    .get(
-        authController.restrictTo('admin'),
-        userController.getUser
-    ).patch(
-        authController.restrictTo('admin'),
-        userController.updateUser
-    ).delete(
-        authController.restrictTo('admin'),
-        userController.deleteUser
-    );
+router.route('/:id').get(userController.getUser)
+    .patch(userController.updateUser)
+    .delete(userController.deleteUser);
 
-module.exports=router;
+module.exports = router;

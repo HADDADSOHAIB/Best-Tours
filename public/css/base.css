@@ -1,0 +1,49 @@
+* {
+  font-family: 'Comic Neue', cursive;
+}
+
+/* Footer style */
+footer,
+footer a {
+  color: rgb(255, 255, 255);
+}
+
+.footer-element {
+  list-style: none;
+  display: flex;
+  padding: 0;
+  margin-bottom: 0;
+  justify-content: center;
+}
+
+.footer-element li {
+  margin: 10px 20px;
+}
+
+.footer-element .logo {
+  width: 50px;
+  height: 30px;
+}
+
+footer {
+  background: linear-gradient(to bottom, rgb(1, 110, 199), rgb(67, 152, 221) 80%, rgb(255, 255, 255));
+}
+
+footer a {
+  text-decoration: underline;
+}
+
+/* Nav bar */
+.navbar-dark .navbar-nav .nav-link {
+  color: rgba(255,255,255,1);
+}
+
+nav .logo {
+  width: 70px;
+  height: 30px;
+}
+
+nav {
+  box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.75);
+}
+
