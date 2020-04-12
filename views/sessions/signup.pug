@@ -10,22 +10,24 @@ block mainpage
         .card-header.text-center.font-weight-bolder Sign up now and let explore
 
         .card-body
-          <form>
-            <div class="form-group">
-              <label for="exampleInputEmail1">Email address</label>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-            </div>
-            <div class="form-group">
-              <label for="exampleInputPassword1">Password</label>
-              <input type="password" class="form-control" id="exampleInputPassword1">
-            </div>
-            <div class="form-group form-check">
-              <input type="checkbox" class="form-check-input" id="exampleCheck1">
-              <label class="form-check-label" for="exampleCheck1">Check me out</label>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </form>
-        
-        .card-footer
-          a.btn.btn-primary(href="#") Go somewhere
+          form
+            .form-group
+              label(for="username") User name
+              input.form-control#username(type="text" required)
+            .form-group
+              label(for="email") Email
+              input.form-control#email(type="email" required)
+            .form-group
+              label(for="password") Password
+              input.form-control#password(type="password" required minlength="8")
+            .form-group
+              label(for="password-confirmation") Confirm password
+              input.form-control#password-confirmation(type="password" required)
+            
+            .d-flex.justify-content-center
+              button.btn.btn-primary(type="submit") Submit
+
+append scripts
+  script(src='js/signup.js')
+       
+  

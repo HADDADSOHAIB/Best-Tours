@@ -18,7 +18,7 @@ app.use(mongoSanitize());
 app.use(xss());
 app.use(hpp({ whitelist:['duration'] }));
 
-app.use(express.static(path.join(__dirname,'public')));
+app.use(express.static(path.join(__dirname,'/public')));
 app.set('view engine', 'pug');
 app.set('views',path.join(__dirname,'views'));
 
