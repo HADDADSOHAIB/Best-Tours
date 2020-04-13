@@ -12,7 +12,7 @@ const userSchema=new mongoose.Schema({
         type:String,
         required:[true,'The name is required'],
         lowercase:true,
-        unique:[true,'The entered value is dublicated (it should be unique'],
+        unique:[true,'The entered value is dublicated (it should be unique)'],
         validate:[validator.isEmail,'Please provide a valid email']
     },
     photo:{

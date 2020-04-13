@@ -20,3 +20,7 @@
     right: 0;
   }
 }
+
+.signup .invalid {
+  border: 3px solid red;
+}
