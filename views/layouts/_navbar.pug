@@ -4,7 +4,7 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-primary
     span.navbar-toggler-icon
 
   .collapse.navbar-collapse#navbarNav
-    ul.navbar-nav
+    ul.navbar-nav.mr-auto
       li.nav-item
         a.nav-link(href="#") Home
       
@@ -13,4 +13,22 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-primary
       
       li.nav-item
         a.nav-link(href="#") Pricing
+
+    ul.navbar-nav.mr-4
+      - if(!user){
+        li.nav-item
+          a.nav-link(href="/signup") Sign Up
+        li.nav-item
+          a.nav-link(href="/signin") Sign In
+      - } else {
+        li.nav-item.dropdown
+          a.nav-link.dropdown-toggle#navbarDropdown(href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") My account
+          .dropdown-menu(aria-labelledby="navbarDropdown")
+            a.dropdown-item(href="#") Action
+            a.dropdown-item(href="#") Action
+            a.dropdown-item(href="#") Action
+            .dropdown-divider
+            a.dropdown-item(href="#") Logout
+      - }
+        
       

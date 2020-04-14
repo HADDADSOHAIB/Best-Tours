@@ -24,8 +24,9 @@ block mainpage
               label(for="password-confirmation") Confirm password
               input.form-control#password-confirmation(type="password" required)
             
-            .d-flex.justify-content-center
-              button.btn.btn-primary(type="submit") Submit
+            .d-flex.justify-content-around
+              button.btn.btn-primary(type="submit") Sign Up
+              a(href="/signin"): button.btn.btn-success(type="button")  Sign In
 
 append scripts
   script(src='js/signup.js')

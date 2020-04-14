@@ -157,14 +157,13 @@ const submit = (e) =>{
       confirmPassword: password_confirmation.value
     })
     .then( response => {
-      console.log(response);
       let message = alertMessage(`Account created, welcome ${response.data.data.user.name}`,'success');
       document.querySelector('.signup .container').insertAdjacentHTML('afterbegin',message);
       createCookie('token_user', response.data.token, 30);
       window.setTimeout(() => window.location.assign('/'), 2000);
     })
     .catch(error => {
-      if(error.response.data.message && error.response.data.message.startsWith('E11000 duplicate key error') ){
+      if(error.response && error.response.data.message.startsWith('E11000 duplicate key error') ){
         let message = alertMessage('There already an account with the same email','danger');
         document.querySelector('.signup .container').insertAdjacentHTML('afterbegin',message);
       }

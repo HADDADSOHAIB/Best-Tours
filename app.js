@@ -10,6 +10,7 @@ const xss=require('xss-clean');
 const hpp=require('hpp');
 const path = require('path');
 var cors = require('cors')
+var cookieParser = require('cookie-parser')
 
 if(process.env.NODE_ENV==='development') app.use(morgan('dev'));
 
@@ -18,6 +19,7 @@ app.use(express.json({ limit:'10kb'}));
 app.use(mongoSanitize());
 app.use(xss());
 app.use(hpp({ whitelist:['duration'] }));
+app.use(cookieParser())
 
 app.use(express.static(path.join(__dirname,'/public')));
 app.set('view engine', 'pug');
@@ -39,14 +41,10 @@ const viewRouter = require('./routes/viewRouter');
 //cors enabling
 app.use(cors());
 
-app.get('/', (req, res) => {
-    res.status(200).render('base');
-});
-
+app.use('/', viewRouter);
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/reviews', reviewRouter);
-app.use('/', viewRouter);
 
 app.all('*',(req,res,next) => next(new AppError(`can't find ${req.originalUrl} on this server`,404)));
 

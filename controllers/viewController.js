@@ -3,7 +3,11 @@ const AppError=require('./../utils/appError');
 
 const signupView = catchAsync((req, res, next) => {
   res.status(200).render('sessions/signup');
-  next();
+});
+
+const signinView = catchAsync((req, res, next) => {
+  res.status(200).render('sessions/signin');
 });
 
 exports.signupView = signupView;
+exports.signinView = signinView;

@@ -1,11 +1,11 @@
-.signup {
-  background: url('../img/bg_signup.jpg');
+.signin {
+  background: url('../img/bg_signin.jpg');
   background-size: cover;
   height: 100vh;
   position: relative;
 }
 
-.signup .card {
+.signin .card {
   width: 20rem;
   position: absolute;
   right: 40px;
@@ -13,7 +13,7 @@
 }
 
 @media only screen and (max-width: 400px){
-  .signup .card {
+  .signin .card {
     width: 100%;
     position: relative;
     top: 20px;
@@ -21,11 +21,7 @@
   }
 }
 
-.signup .invalid {
-  border: 3px solid red;
-}
-
-.signup .alert {
+.signin .alert {
   position: absolute;
   top: 0;
   right: 20px;
