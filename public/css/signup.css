@@ -24,3 +24,10 @@
 .signup .invalid {
   border: 3px solid red;
 }
+
+.signup .alert {
+  position: absolute;
+  top: 0;
+  right: 20px;
+  z-index: 2;
+}

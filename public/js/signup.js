@@ -123,8 +123,31 @@ const validatePasswordConfirmation = (e = null) => {
 
 password_confirmation.addEventListener('keyup', validatePasswordConfirmation)
 
+const createCookie = (name, value, days) => {
+  var expires;
+  if (days) {
+      var date = new Date();
+      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+      expires = "; expires=" + date.toGMTString();
+  }
+  else {
+      expires = "";
+  }
+  document.cookie = name + "=" + value + expires + "; path=/";
+}
+
 const submit = (e) =>{
   e.preventDefault();
+
+  const alertMessage = (msg, status) =>{
+    return `<div class="alert alert-${status} alert-dismissible fade show" role="alert">
+              ${msg}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>`
+  }
+
   let valid = email.value && username.value && password && password_confirmation && !document.querySelector('.notice');
   if(valid){
     axios.post(`/api/v1/users/signup`, {
@@ -135,9 +158,20 @@ const submit = (e) =>{
     })
     .then( response => {
       console.log(response);
+      let message = alertMessage(`Account created, welcome ${response.data.data.user.name}`,'success');
+      document.querySelector('.signup .container').insertAdjacentHTML('afterbegin',message);
+      createCookie('token_user', response.data.token, 30);
+      window.setTimeout(() => window.location.assign('/'), 2000);
     })
     .catch(error => {
-      console.log(error);
+      if(error.response.data.message && error.response.data.message.startsWith('E11000 duplicate key error') ){
+        let message = alertMessage('There already an account with the same email','danger');
+        document.querySelector('.signup .container').insertAdjacentHTML('afterbegin',message);
+      }
+      else{
+        let message = alertMessage('Unexpected error, try later', 'danger');
+        document.querySelector('.signup .container').insertAdjacentHTML('afterbegin',message);
+      }
     });
   }
 }
