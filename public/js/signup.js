@@ -127,7 +127,7 @@ const submit = (e) =>{
   e.preventDefault();
   let valid = email.value && username.value && password && password_confirmation && !document.querySelector('.notice');
   if(valid){
-    axios.post(`${window.location.host}/api/v1/users/signup`, {
+    axios.post(`/api/v1/users/signup`, {
       name: username.value,
       email: email.value,
       password: password.value,
@@ -136,7 +136,7 @@ const submit = (e) =>{
     .then( response => {
       console.log(response);
     })
-    .catch(ferror => {
+    .catch(error => {
       console.log(error);
     });
   }

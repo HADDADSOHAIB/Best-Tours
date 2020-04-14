@@ -9,6 +9,7 @@ const mongoSanitize=require('express-mongo-sanitize');
 const xss=require('xss-clean');
 const hpp=require('hpp');
 const path = require('path');
+var cors = require('cors')
 
 if(process.env.NODE_ENV==='development') app.use(morgan('dev'));
 
@@ -34,6 +35,9 @@ const tourRouter=require('./routes/tourRoute');
 const userRouter=require('./routes/userRoute');
 const reviewRouter=require('./routes/reviewRoute');
 const viewRouter = require('./routes/viewRouter');
+
+//cors enabling
+app.use(cors());
 
 app.get('/', (req, res) => {
     res.status(200).render('base');

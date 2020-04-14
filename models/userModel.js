@@ -57,11 +57,11 @@ userSchema.pre('save',async function(next){
     next();
 });
 
-userSchema.pre('save',async function(next){
-    if(!this.isModified('password') || this.isNew()) return next();
-    this.passwordChangedAt=Date.now()-2000;
-    next();
-});
+// userSchema.pre('save',async function(next){
+//     if(!this.isModified('password') || this.isNew()) return next();
+//     this.passwordChangedAt=Date.now()-2000;
+//     next();
+// });
 
 userSchema.methods.correctPassword=async function(candidatPassword,userPassword){
     return await bcrypt.compare(candidatPassword,userPassword);
