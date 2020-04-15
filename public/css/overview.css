@@ -6,6 +6,25 @@
   padding: 0;
 }
 
+.overview .image {
+  position: relative;
+}
+
+.overview .layer {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  display: none;
+}
+
+.overview .layer:hover {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .overview .loader {
   display: inline-block;
   position: relative;
@@ -47,6 +66,6 @@
   color: var(--primary);
 }
 
-.overview .card-body i {
+.overview .card i {
   color: var(--primary);
 }
