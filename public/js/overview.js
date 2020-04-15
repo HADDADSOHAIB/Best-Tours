@@ -5,7 +5,7 @@ const tourCard = (tour) => `
       <div class="layer">
         <div class="details">
           <a href="#">
-            <button type="button" class="btn btn-outline-primary">Details</button>
+            <button type="button" class="btn btn-primary">Details</button>
           </a>
         </div>
       </div>
@@ -58,9 +58,17 @@ const insertLoadedData = () => {
 
     responseData.forEach(el =>{
       el.startDate = new Date(el.startDates[0]).toLocaleDateString('en-US',{ day: 'numeric', month: 'short', year: 'numeric' });
+      const card = document.querySelector('.overview .row').insertAdjacentHTML('beforeend',tourCard(el));
+    });
+    
+    const cards = document.querySelectorAll('.overview .card');
+    cards.forEach(card => {
+      let layer = card.querySelector('.layer');
+      layer.style.display = 'none';
 
-      document.querySelector('.overview .row')
-        .insertAdjacentHTML('beforeend',tourCard(el));
+      let image = card.querySelector('.image');
+      image.addEventListener('mouseenter', () =>layer.style.display = 'flex');
+      image.addEventListener('mouseleave', () => layer.style.display = 'none');
     });
   })
   .catch(error => {

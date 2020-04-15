@@ -13,17 +13,15 @@
 .overview .layer {
   height: 100%;
   width: 100%;
+  background-color: rgba(168, 238, 4, 0.4);
   position: absolute;
   top: 0;
   z-index: 2;
-  display: none;
-}
-
-.overview .layer:hover {
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 
 .overview .loader {
   display: inline-block;
