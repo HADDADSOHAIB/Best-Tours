@@ -14,6 +14,11 @@ const overviewView = catchAsync((req, res, next) => {
   res.status(200).render('roots/overview');
 });
 
+const tourDetailsView = catchAsync( async(req, res, next) => {
+  res.status(200).render('tours/tourDetails', { slug: req.params.slug });
+});
+
+exports.tourDetailsView = tourDetailsView;
 exports.overviewView = overviewView;
 exports.signupView = signupView;
 exports.signinView = signinView;

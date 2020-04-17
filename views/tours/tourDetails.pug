@@ -1,0 +1,20 @@
+extends ../layouts/base.pug
+
+block append header
+  link(rel='stylesheet' href='/css/tourDetails.css')
+
+block mainpage
+  .tour-details( data-slug= slug )
+    
+    .d-flex.justify-content-center.carousel-container
+      .loader
+        div
+        div
+        div
+            
+        
+
+
+append scripts
+  script(src='/js/tourDetails.js')
+       
