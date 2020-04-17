@@ -10,3 +10,38 @@
   left: 20%;
   right: 20%;
 }
+
+.tour-details .tour-information-title,
+.tour-details .tour-description-title {
+  color: var(--primary);
+}
+
+.tour-details .tour-information-details i,
+.tour-details .tour-description-details i {
+  color: var(--primary);
+}
+
+.tour-details .tour-information-details,
+.tour-details .tour-description-details {
+  font-size: 1.2rem;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.tour-details #carouselFade,
+.tour-details .carousel-item img{
+  height: 92vh;
+}
+
+.tour-details #map {
+  height: 100vh;
+  width: 100%;
+}
+
+.tour-details .marker {
+  background-image: url('../img/pin.png');
+  background-size: cover;
+  width: 32px;
+  height: 40px;
+  cursor: pointer;
+}

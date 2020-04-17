@@ -4,7 +4,7 @@ const tourCard = (tour) => `
       <img src="/img/tours/${tour.imageCover}" class="card-img-top" alt="...">
       <div class="layer">
         <div class="details">
-          <a href="#">
+          <a href="/tour/${tour.slug}">
             <button type="button" class="btn btn-primary">Details</button>
           </a>
         </div>

@@ -29,3 +29,7 @@
 .overview .card i {
   color: var(--primary);
 }
+
+.overview .details {
+  color: #fff;
+}

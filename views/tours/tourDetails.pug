@@ -1,17 +1,41 @@
 extends ../layouts/base.pug
 
 block append header
+  script(src='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js')
+  link(href='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css' rel='stylesheet')
   link(rel='stylesheet' href='/css/tourDetails.css')
 
 block mainpage
   .tour-details( data-slug= slug )
-    
     .d-flex.justify-content-center.carousel-container
-      .loader
+      .loader.tour
         div
         div
         div
-            
+    
+    .container-fluid
+      .row
+        .col-12.col-md-6.d-flex.align-items-center.flex-column.my-3
+          h3.tour-information-title.mt-3 Tour Information
+          .loader.tour
+            div
+            div
+            div
+      
+        .col-12.col-md-6.d-flex.align-items-center.flex-column.my-3
+          h3.mt-3.tour-description-title Tour Description
+          .loader.tour
+            div
+            div
+            div
+    
+    #map
+      .loader.d-flex.mx-auto.tour
+          div
+          div
+          div
+
+                
         
 
 
