@@ -20,20 +20,12 @@ module.exports = class Email {
                 }
             });
         }
-        
-        // return nodemailer.createTransport({
-        //     host: "smtp.mailtrap.io",
-        //     port: 2525,
-        //     auth: {
-        //         user: "d23bd18c09de2b",
-        //         pass: "9a16b2a69f8fff"
-        //     }
-        // });
+
         return nodemailer.createTransport({
-            service: 'SendGrid',
+            service: 'gmail',
             auth:{
-                user: 'apikey',
-                pass: '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'
+                user: 'dev.haddad@gmail.com',
+                pass: process.env.EMAILP
             }
         });
     }
