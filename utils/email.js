@@ -15,18 +15,25 @@ module.exports = class Email {
             return nodemailer.createTransport({
                 service: 'SendGrid',
                 auth:{
-                    user:process.env.SENDGRID_USERNAME,
-                    pass:process.env.SENDGRID_PASSWORD
+                    user: 'apikey',
+                    pass: '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'
                 }
             });
         }
         
+        // return nodemailer.createTransport({
+        //     host: "smtp.mailtrap.io",
+        //     port: 2525,
+        //     auth: {
+        //         user: "d23bd18c09de2b",
+        //         pass: "9a16b2a69f8fff"
+        //     }
+        // });
         return nodemailer.createTransport({
-            host:process.env.EMAIL_HOST,
-            port:process.env.EMAIL_PORT,
+            service: 'SendGrid',
             auth:{
-                user:process.env.EMAIL_USERNAME,
-                pass:process.env.EMAIL_PASSWORD
+                user: 'apikey',
+                pass: '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'
             }
         });
     }
@@ -46,8 +53,10 @@ module.exports = class Email {
             html,
             text: htmlToText.fromString(html)
         }
-
-        await this.createTransport().sendMail(mailOptions);
+        
+        this.createTransport().sendMail(mailOptions)
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
     }
 
     async sendWelcome(){

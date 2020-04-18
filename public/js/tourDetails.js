@@ -177,18 +177,14 @@ const createBookingSession = () => {
     .then(response => {
       console.log(response);
       stripe.redirectToCheckout({
-        sessionId: response.data.sesson.id
+        sessionId: response.data.session.id
+      }).then(function (result) {
+        console.log(result);
       });
     })
     .catch(err => {
       console.dir(err);
     });
-   
-  // stripe.redirectToCheckout({
-  //   sessionId: '{{CHECKOUT_SESSION_ID}}'
-  // }).then(function (result) {
-    
-  // });
 }
 
 document.getElementById('book-tour').addEventListener('click', createBookingSession);

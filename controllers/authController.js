@@ -55,12 +55,11 @@ exports.login=catchAsync(async (req,res, next)=>{
 
 exports.protect=catchAsync(async (req,res,next)=>{
     let token;
+    if(req.cookies.token_user) token = req.cookies.token_user;
 
     if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
         token=req.headers.authorization.split(' ')[1];
     }
-
-    if(req.cookies.token_user) token = req.cookies.token_user;
     
     if(!token){
         return next(new AppError('You are not logged in',401));
