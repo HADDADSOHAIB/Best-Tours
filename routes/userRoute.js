@@ -9,7 +9,10 @@ router.post('/forgotPassword',authController.forgotPassword);
 router.patch('/restPassword/:token',authController.restPassword);
 router.use(authController.protect);
 router.patch('/updateMyPassword',authController.updatePassword);
-router.patch('/updateMe',userController.uploadUserPhoto,userController.updateMe);
+router.patch('/updateMe',
+    userController.uploadUserPhoto,
+    userController.resizeUserPhoto,
+    userController.updateMe);
 router.patch('/deleteMe',userController.deleteMe);
 router.route('/me').get(
     userController.getMe,

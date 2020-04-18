@@ -3,7 +3,7 @@ const catchAsync=require('./../utils/catchAsync');
 const jwt=require('jsonwebtoken');
 const AppError=require('./../utils/appError');
 const {promisify}=require('util');
-const sendEmail=require('./../utils/email');
+const Email=require('./../utils/email');
 const crypto=require('crypto');
 
 const signToken=id=>{
@@ -20,9 +20,11 @@ exports.signup = catchAsync(async (req,res,next)=>{
         password:req.body.password,
         confirmPassword:req.body.confirmPassword
     });
-
+    
     const token=signToken(newUser._id);
-
+    const url = `${req.protocol}://${req.get('host')}/me`;
+    new Email(newUser, url).sendWelcome();
+    
     res.status(201).json({
         status:'success',
         token,
@@ -101,17 +103,10 @@ exports.forgotPassword=catchAsync(async (req, res, next)=>{
     }
     const restToken=user.createPasswordRestToken();
     await user.save({validateBeforeSave:false});
-    const resetURL=`${req.protocol}://${req.get('host')}/api/users/restPassword/${restToken}`;
-    const message=`forget your password? submit a patch request with your new password and
-        confirmPassword to: ${resetURL}.
-        if you didn't, forget your password, please ignore this email`;
-    
+ 
     try{
-        await sendEmail({
-            email:user.email,
-            subject:'password reset!!! valid for 10 min !!!',
-            message
-        });
+        const resetURL=`${req.protocol}://${req.get('host')}/api/users/restPassword/${restToken}`;
+        await new Email(user, resetURL).sendPasswordRest();
         res.status(200).json({
             status:'success',
             message:'Token sent to email'
