@@ -37,13 +37,14 @@ const tourRouter=require('./routes/tourRoute');
 const userRouter=require('./routes/userRoute');
 const reviewRouter=require('./routes/reviewRoute');
 const viewRouter = require('./routes/viewRouter');
-
+const bookingRouter = require('./routes/bookingRouter');
 //cors enabling
 app.use(cors());
 
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/reviews', reviewRouter);
+app.use('/api/v1/bookings', bookingRouter);
 app.use('/', viewRouter);
 
 app.all('*',(req,res,next) => next(new AppError(`can't find ${req.originalUrl} on this server`,404)));
