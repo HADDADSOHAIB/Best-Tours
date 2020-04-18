@@ -12,7 +12,8 @@
 }
 
 .tour-details .tour-information-title,
-.tour-details .tour-description-title {
+.tour-details .tour-description-title,
+.tour-details .reviews-title {
   color: var(--primary);
 }
 

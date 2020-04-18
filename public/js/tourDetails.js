@@ -118,6 +118,24 @@ const mapBox = locations => {
   });
 }
 
+const reviewCard = review => `
+<div class="card p-0 m-3 col-11 col-sm-5 col-md-3 border-primary">
+  <div class="row no-gutters d-flex align-items-center">
+    <img src="/img/users/${review.user.photo}" class="card-img col-md-4" alt="user picture">
+    <div class="px-3 mt-1 col-md-8">
+      <h5 class="card-title">${review.user.name}</h5>
+    </div>
+  </div>
+  <div>
+    <div class="card-body pt-1">
+      <p class="card-text">${review.review}</p>
+      <p class="card-text">Rating: ${review.rating}/5</p>
+    </div>
+  </div>
+
+</div>
+`
+const reviewCards = reviews => reviews.reduce((markup, review) => markup += reviewCard(review),'');
 
 axios.get(`/api/v1/tours/slug/${slug}`)
   .then( response => {
@@ -141,6 +159,8 @@ axios.get(`/api/v1/tours/slug/${slug}`)
       .insertAdjacentHTML('afterend', tourDescription(tour));
 
     mapBox(tour.locations);
+
+    document.querySelector('.tour-details .tour-reviews').insertAdjacentHTML('afterbegin', reviewCards(tour.reviews.slice(0,3)));
   })
   .catch(error => {
     console.dir(error);
