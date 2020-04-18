@@ -136,6 +136,7 @@ const reviewCard = review => `
 </div>
 `
 const reviewCards = reviews => reviews.reduce((markup, review) => markup += reviewCard(review),'');
+let tourId = '';
 
 axios.get(`/api/v1/tours/slug/${slug}`)
   .then( response => {
@@ -161,7 +162,15 @@ axios.get(`/api/v1/tours/slug/${slug}`)
     mapBox(tour.locations);
 
     document.querySelector('.tour-details .tour-reviews').insertAdjacentHTML('afterbegin', reviewCards(tour.reviews.slice(0,3)));
+
+    tourId = tour._id;
   })
   .catch(error => {
     console.dir(error);
   });
+
+const createBookingSession = () => {
+  console.log(tourId);
+}
+
+document.getElementById('book-tour').addEventListener('click', createBookingSession);
