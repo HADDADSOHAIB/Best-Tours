@@ -7,20 +7,10 @@ module.exports = class Email {
         this.to = user.email;
         this.firstName = user.name.split(' ')[0];
         this.url = url;
-        this.from = 'Haddad Sohaib <dev.haddad@gmail.com>'
+        this.from = 'Best Tours Agency | CEO Sohaib Haddad <dev.haddad@gmail.com>'
     }
 
     createTransport(){
-        if(process.env.NODE_ENV === 'production'){
-            return nodemailer.createTransport({
-                service: 'SendGrid',
-                auth:{
-                    user: 'apikey',
-                    pass: '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'
-                }
-            });
-        }
-
         return nodemailer.createTransport({
             service: 'gmail',
             auth:{

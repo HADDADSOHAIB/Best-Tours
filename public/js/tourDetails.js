@@ -170,21 +170,10 @@ axios.get(`/api/v1/tours/slug/${slug}`)
   });
 
 const createBookingSession = () => {
-  console.log(tourId);
-  let session ="empty";
   const stripe = Stripe('pk_test_9NzwckxxlcYFvwEQyQAJPsb000t73CznzF');
-  axios.get(`/api/v1/bookings/checkout-session/${tourId}`)
-    .then(response => {
-      console.log(response);
-      stripe.redirectToCheckout({
-        sessionId: response.data.session.id
-      }).then(function (result) {
-        console.log(result);
-      });
-    })
-    .catch(err => {
-      console.dir(err);
-    });
+  axios.get(`/api/v1/bookings/checkout-session/${tourId}`).then(res => {
+    stripe.redirectToCheckout({ sessionId: res.data.session.id });
+  }).catch(err => console.dir(err)); 
 }
 
 document.getElementById('book-tour').addEventListener('click', createBookingSession);
