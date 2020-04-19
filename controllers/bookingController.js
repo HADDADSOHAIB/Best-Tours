@@ -7,8 +7,7 @@ const stripe = require('stripe')('sk_test_hE2iOItUacnaA3fEOI3ip9zp00gjGoK4w0');
 
 exports.getCheckoutSession = catchAsync( async(req, res, next) => {
   const tour = await Tour.findById(req.params.tourId);
-  console.log(req.protocol);
-  console.log(process.env.STRIPE_SECRET_KEY);
+
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ['card'],
     success_url: `${req.protocol}://${req.get('host')}/?tour=${req.params.tourId}&&user=${req.user.id}&&price=${tour.price}`,
@@ -32,9 +31,15 @@ exports.getCheckoutSession = catchAsync( async(req, res, next) => {
   });
 });
 
-exports.createBookingCheckout  = catchAsync( async(req, res, next) => {
+exports.createBookingCheckout  = (req, res, next) => {
   const { tour, user, price } = req.query;
+ 
   if(!tour || !user || !price) next();
-  await Booking.create({ tour, user, price });
-  res.redirect(`${req.protocol}://${req.get('host')}/`);
-});
+ 
+  Booking.create({tour, user, price }, function (err, response) {
+    if (err) return new AppError("Booking Error", 400);
+    console.log("Tour Booked successfuly");
+    console.log(response);
+  });
+  res.redirect(301,`${req.protocol}://${req.get('host')}/`);
+};
