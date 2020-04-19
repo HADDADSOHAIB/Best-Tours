@@ -10,7 +10,9 @@ const xss=require('xss-clean');
 const hpp=require('hpp');
 const path = require('path');
 var cors = require('cors')
-var cookieParser = require('cookie-parser')
+
+app.enable('trust proxy');
+const cookieParser = require('cookie-parser')
 
 if(process.env.NODE_ENV==='development') app.use(morgan('dev'));
 
