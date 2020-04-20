@@ -99,13 +99,13 @@ exports.restrictTo=(...roles)=>{
     });
 }
 
-exports.forgotPassword=catchAsync(async (req, res, next)=>{
+exports.forgotPassword = catchAsync(async (req, res, next)=>{
     const user=await User.findOne({email:req.body.email});
     if(!user){
         return next(new AppError('No user with the provided address',404));
     }
-    const restToken=user.createPasswordRestToken();
-    await user.save({validateBeforeSave:false});
+    const restToken = user.createPasswordRestToken();
+    await user.save({ validateBeforeSave: false });
  
     try{
         const resetURL=`${req.protocol}://${req.get('host')}/api/users/restPassword/${restToken}`;
