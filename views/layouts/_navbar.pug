@@ -6,9 +6,6 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-primary
   .collapse.navbar-collapse#navbarNav
     ul.navbar-nav.mr-auto
       li.nav-item
-        a.nav-link(href="/") Home
-      
-      li.nav-item
         a.nav-link(href="/") All Tours
       
       li.nav-item
@@ -24,7 +21,7 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-primary
         li.nav-item.dropdown
           a.nav-link.dropdown-toggle#navbarDropdown(href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") My account
           .dropdown-menu(aria-labelledby="navbarDropdown")
-            a.dropdown-item(href="#") Account Settings
+            a.dropdown-item(href="/me") Account Settings
             a.dropdown-item#signout(href="#") Logout
       - }
         

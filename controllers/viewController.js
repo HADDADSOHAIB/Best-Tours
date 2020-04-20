@@ -1,36 +1,30 @@
-const catchAsync=require('./../utils/catchAsync');
-const AppError=require('./../utils/appError');
-const Tour = require('../models/tourModel');
 
-const signupView = (req, res) => {
+exports.signupView = (req, res) => {
   res.status(200).render('sessions/signup');
 };
 
-const signinView = (req, res) => {
+exports.signinView = (req, res) => {
   res.status(200).render('sessions/signin');
 };
 
-const overviewView = (req, res) => {
+exports.overviewView = (req, res) => {
   res.status(200).render('roots/overview');
 };
 
-const tourDetailsView = (req, res) => {
+exports.tourDetailsView = (req, res) => {
   res.status(200).render('tours/tourDetails', { slug: req.params.slug });
 };
 
-const forgotPasswordView = (req, res) => {
+exports.forgotPasswordView = (req, res) => {
   res.status(200).render('sessions/forgotPassword');
 }
 
-const resetPasswordView = (req, res) => {
+exports.resetPasswordView = (req, res) => {
   res.status(200).render('sessions/resetPassword',{
     token: req.params.token
   });
 }
 
-exports.resetPasswordView = resetPasswordView;
-exports.forgotPasswordView = forgotPasswordView;
-exports.tourDetailsView = tourDetailsView;
-exports.overviewView = overviewView;
-exports.signupView = signupView;
-exports.signinView = signinView;
+exports.meView = (req, res) => {
+  res.status(200).render('users/me');
+}
