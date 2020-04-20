@@ -3,11 +3,12 @@ const pug = require('pug');
 const htmlToText = require('html-to-text');
 
 module.exports = class Email {
-    constructor(user, url){
+    constructor(user, url, options = {}){
         this.to = user.email;
         this.firstName = user.name.split(' ')[0];
         this.url = url;
         this.from = 'Best Tours Agency | CEO Sohaib Haddad <dev.haddad@gmail.com>'
+        this.options = options;
     }
 
     createTransport(){
@@ -25,7 +26,8 @@ module.exports = class Email {
             {
                 firstName: this.firstName,
                 url: this.url,
-                subject
+                subject,
+                options: this.options
             });
 
         const mailOptions={
@@ -47,5 +49,9 @@ module.exports = class Email {
 
     async sendPasswordRest(){
         await this.send('passwordReset', 'Rest your password, valid for 10min!!');
+    }
+
+    async sendTourBooked(){
+        await this.send('tourBooked', 'Congratulation, your tour is booked successfully');
     }
 }
