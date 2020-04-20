@@ -6,12 +6,17 @@ block append header
 block mainpage
   .me
     .container-fluid
-      .loader.mr-auto.ml-auto
-        div
-        div
-        div
-        
+      .card.p-0.m-3.col-12.col-sm-6.col-md-4.mr-auto.ml-auto
+        .row.no-gutters.d-flex.align-items-center
+          img.card-img.col-md-4(src="/img/users/default.jpg" alt="user picture")
+          .px-3.mt-1.col-md-8
+            h5.card-title User Informations
 
+          .card-body.pt-1
+            .loader.mr-auto.ml-auto
+              div
+              div
+              div
 
 append scripts
   script(src='/js/me.js')

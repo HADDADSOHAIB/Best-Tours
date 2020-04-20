@@ -14,7 +14,7 @@ router.patch('/updateMe',
     userController.resizeUserPhoto,
     userController.updateMe);
 router.patch('/deleteMe',userController.deleteMe);
-router.route('/me').get(
+router.get('/me',
     userController.getMe,
     userController.getUser
 );
@@ -25,5 +25,3 @@ router.route('/:id').get(userController.getUser)
     .delete(userController.deleteUser);
 
 module.exports = router;
-
-

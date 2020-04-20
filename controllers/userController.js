@@ -25,11 +25,12 @@ const multerFilter=(req,file,cb)=>{
     }
 }
 const upload=multer({
-    storage:multerStorage,
+    storage: multerStorage,
     fileFilter: multerFilter
 });
 exports.uploadUserPhoto=upload.single('photo');
 exports.resizeUserPhoto=catchAsync(async(req,res,next)=>{
+    
     if(!req.file) return next();
     req.file.filename=`user-${req.user.id}-${Date.now()}.jpeg`;
     await sharp(req.file.buffer)
@@ -50,14 +51,16 @@ exports.getMe=(req,res,next)=>{
 }
 
 exports.updateMe=catchAsync(async (req, res, next)=>{
+
     if(req.body.password || req.body.confirmPassword){
         return next(new AppError('This route is not for password update',400));
     }
 
-    const filteredBody=filterObj(req.body,'name','email','photo');
+    const filteredBody=filterObj(req.body,'name','photo');
     if(req.file) filteredBody.photo=req.file.filename;
-    const updatedUser= await User.findByIdAndUpdate(req.user.id, filteredBody, {new:true, runValidators:true});
 
+    const updatedUser= await User.findByIdAndUpdate(req.user.id, filteredBody, {new:true, runValidators:true});
+    
     res.status(200).json({
         status:'success',
         data:{
