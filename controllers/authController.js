@@ -108,7 +108,7 @@ exports.forgotPassword = catchAsync(async (req, res, next)=>{
     await user.save({ validateBeforeSave: false });
  
     try{
-        const resetURL=`${req.protocol}://${req.get('host')}/api/users/restPassword/${restToken}`;
+        const resetURL=`${req.protocol}://${req.get('host')}/reset-password/${restToken}`;
         await new Email(user, resetURL).sendPasswordRest();
         res.status(200).json({
             status:'success',
@@ -124,16 +124,16 @@ exports.forgotPassword = catchAsync(async (req, res, next)=>{
     
 });
 
-exports.restPassword=catchAsync( async (req,res,next)=>{
-    const hashedToken=crypto.createHash('sha256').update(req.params.token).digest('hex');
+exports.restPassword = catchAsync( async(req,res,next)=>{
+    const hashedToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
     const user= await User.findOne({ passwordRestToken: hashedToken, passwordRestExpires:{$gt: Date.now()}});
     if(!user){
-        return next(new AppError('Token Invalid or Expires',400));
+        return next(new AppError('Token Invalid or Expires, send another reset request',400));
     }
-    user.password=req.body.password;
-    user.confirmPassword=req.body.confirmPassword;
-    user.passwordRestToken=undefined;
-    user.passwordRestExpires=undefined;
+    user.password = req.body.password;
+    user.confirmPassword = req.body.confirmPassword;
+    user.passwordRestToken = undefined;
+    user.passwordRestExpires = undefined;
     await user.save();
 
     const token=signToken(user._id);

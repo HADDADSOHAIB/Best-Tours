@@ -22,6 +22,13 @@ const forgotPasswordView = (req, res) => {
   res.status(200).render('sessions/forgotPassword');
 }
 
+const resetPasswordView = (req, res) => {
+  res.status(200).render('sessions/resetPassword',{
+    token: req.params.token
+  });
+}
+
+exports.resetPasswordView = resetPasswordView;
 exports.forgotPasswordView = forgotPasswordView;
 exports.tourDetailsView = tourDetailsView;
 exports.overviewView = overviewView;

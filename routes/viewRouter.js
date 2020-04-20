@@ -10,6 +10,7 @@ router.get('/tour/:slug', viewController.tourDetailsView);
 router.get('/signup', viewController.signupView);
 router.get('/signin', viewController.signinView);
 router.get('/forgot-password', viewController.forgotPasswordView)
+router.get('/reset-password/:token', viewController.resetPasswordView)
 router.get('/', 
   bookingController.createBookingCheckout, 
   viewController.overviewView

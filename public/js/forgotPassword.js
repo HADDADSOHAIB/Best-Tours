@@ -14,10 +14,8 @@ const resetPassword = (e) => {
       email
     })
     .then(response => {
-      console.log(response)
       let message = alertMessage(response.data.message, 'success');
       document.querySelector('.container').insertAdjacentHTML('afterbegin',message);
-      window.setTimeout(() => window.location.assign('/signin'), 2000);
     })
     .catch(error => {
       let message = alertMessage(error.response.data.message, 'danger');
