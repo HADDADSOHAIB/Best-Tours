@@ -5,7 +5,7 @@ const submitReset = (e) =>{
   if(valid){
     let token = document.querySelector('form').dataset.token;
    
-    axios.patch(`/api/v1/users/resetPassword/${token}}`, {
+    axios.patch(`/api/v1/users/resetPassword/${token}`, {
       password: password.value,
       confirmPassword: password_confirmation.value
     })
@@ -15,6 +15,7 @@ const submitReset = (e) =>{
       window.setTimeout(() => window.location.assign('/signin'), 2000);
     })
     .catch(error => {
+      console.dir(error);
       let message = alertMessage(error.response.data.message, 'danger');
       document.querySelector('.container').insertAdjacentHTML('afterbegin',message);
     });

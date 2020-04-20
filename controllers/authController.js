@@ -112,7 +112,7 @@ exports.forgotPassword = catchAsync(async (req, res, next)=>{
         await new Email(user, resetURL).sendPasswordRest();
         res.status(200).json({
             status:'success',
-            message:'Token sent to email'
+            message:'Token sent to email successfully, check your inbox'
         });
     }
     catch(err){
@@ -127,6 +127,7 @@ exports.forgotPassword = catchAsync(async (req, res, next)=>{
 exports.restPassword = catchAsync( async(req,res,next)=>{
     const hashedToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
     const user= await User.findOne({ passwordRestToken: hashedToken, passwordRestExpires:{$gt: Date.now()}});
+ 
     if(!user){
         return next(new AppError('Token Invalid or Expires, send another reset request',400));
     }
