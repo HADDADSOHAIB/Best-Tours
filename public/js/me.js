@@ -1,9 +1,9 @@
 const userCard = user => `
-<div class="card p-0 m-3 col-12 col-sm-6 col-md-4 mr-auto ml-auto">
+<div class="card p-0 m-3 col-12 col-sm-8 col-md-6 col-lg-4 mr-auto ml-auto">
   <div class="row no-gutters d-flex align-items-center">
     <img src="/img/users/${user.photo}" class="card-img col-md-4" alt="user picture">
     <div class="px-3 mt-1 col-md-8">
-      <h5 class="card-title">${user.name}</h5>
+      <h5 class="card-title">${user.name} ${user.role != 'user' ? '('+user.role+')' : ''}</h5>
       <input type="file" class="form-control-file" id="photo-file">
       <button class="btn btn-outline-primary m-1" id="update-picture">Update Picture</button>
     </div>

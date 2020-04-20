@@ -10,6 +10,9 @@
   left: 20%;
   right: 20%;
 }
+.tour-details .carousel-item img {
+  object-fit: cover;
+}
 
 .tour-details .tour-information-title,
 .tour-details .tour-description-title,

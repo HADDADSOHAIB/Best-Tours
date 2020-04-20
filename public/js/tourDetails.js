@@ -161,8 +161,23 @@ axios.get(`/api/v1/tours/slug/${slug}`)
 
     mapBox(tour.locations);
 
-    document.querySelector('.tour-details .tour-reviews').insertAdjacentHTML('afterbegin', reviewCards(tour.reviews.slice(0,3)));
-
+    // pagination library integration
+    function templating(data) {
+      let html = '';
+      $.each(data, function(index, item){
+          html += reviewCard(item);
+      });
+      return html;
+    }
+    $('#pagination-container').pagination({
+        dataSource: tour.reviews,
+        pageSize: 3,
+        callback: function(data, pagination) {
+            // template method of yourself
+            let html = templating(data);
+            $('#data-container').html(html);
+        }
+    });
     tourId = tour._id;
   })
   .catch(error => {

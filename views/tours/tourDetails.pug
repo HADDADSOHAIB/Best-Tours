@@ -3,6 +3,7 @@ extends ../layouts/base.pug
 block append header
   script(src='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js')
   link(href='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css' rel='stylesheet')
+  link(rel='stylesheet' href='/css/pagination.css')
   link(rel='stylesheet' href='/css/tourDetails.css')
 
 block mainpage
@@ -36,20 +37,18 @@ block mainpage
         div
     .container-fluid
       h3.my-3.text-center.reviews-title Reviews
-      .row.tour-reviews.d-flex.justify-content-center
+      .row.tour-reviews.d-flex.justify-content-center#data-container
         .loader.tour.mx-auto
           div
           div
           div
+      #pagination-container.justify-content-center.d-flex
       .booking.text-center
         button.btn.btn-primary#book-tour.my-3 Book Tour Now
 
 
-                
-        
-
-
 append scripts
   script(src="https://js.stripe.com/v3/")
+  script(src='/js/pagination.js')
   script(src='/js/tourDetails.js')
        
