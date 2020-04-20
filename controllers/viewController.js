@@ -28,3 +28,8 @@ exports.resetPasswordView = (req, res) => {
 exports.meView = (req, res) => {
   res.status(200).render('users/me');
 }
+
+exports.tourBookedView = (req, res) => {
+  const tourId = req.params.tourId;
+  res.status(200).render('tours/tourBooked', { tourId });
+}

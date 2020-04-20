@@ -11,6 +11,7 @@ router.get('/signup', viewController.signupView);
 router.get('/signin', viewController.signinView);
 router.get('/forgot-password', viewController.forgotPasswordView);
 router.get('/reset-password/:token', viewController.resetPasswordView);
+router.get('/tour-booked/:tourId', viewController.tourBookedView);
 router.get('/me', viewController.meView);
 router.get('/', 
   bookingController.createBookingCheckout, 

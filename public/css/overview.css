@@ -33,3 +33,7 @@
 .overview .details {
   color: #fff;
 }
+
+.overview {
+  min-height: 82vh;
+}

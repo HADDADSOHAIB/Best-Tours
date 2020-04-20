@@ -40,6 +40,7 @@ exports.createBookingCheckout  = (req, res, next) => {
     if (err) return new AppError("Booking Error", 400);
     console.log("Tour Booked successfuly");
     console.log(response);
+    
   });
-  res.redirect(301,`${req.protocol}://${req.get('host')}/`);
+  res.redirect(301,`${req.protocol}://${req.get('host')}/tour-booked/${tour}`);
 };
