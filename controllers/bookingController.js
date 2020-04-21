@@ -41,13 +41,13 @@ exports.createBookingCheckout  = (req, res, next) => {
   else{
     let email = new Email(JSON.parse(user),`${req.protocol}://${req.get('host')}/my-tours`,{ tourName });
 
-    Booking.create({tour, user, price }, function (err, response) {
+    Booking.create({tour, user: JSON.parse(user)._id , price }, function (err, response) {
       if (err){
         email.sendTourNotBooked();
-        new AppError("Booking Error", 400);
       }
-
-      email.sendTourBooked();
+      else {
+        email.sendTourBooked();
+      }
     });
     res.redirect(301,`${req.protocol}://${req.get('host')}/tour-booked/${tour}`);
   }
