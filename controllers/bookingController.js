@@ -52,3 +52,16 @@ exports.createBookingCheckout  = (req, res, next) => {
     res.redirect(301,`${req.protocol}://${req.get('host')}/tour-booked/${tour}`);
   }
 };
+
+exports.getMyTours = catchAsync( async(req, res, next) => {
+  const myTours = await Booking
+    .find({ user: req.user._id })
+    .populate('tour');
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      myTours
+    }
+  });
+});
