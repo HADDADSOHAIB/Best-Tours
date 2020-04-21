@@ -33,3 +33,7 @@ exports.tourBookedView = (req, res) => {
   const tourId = req.params.tourId;
   res.status(200).render('tours/tourBooked', { tourId });
 }
+
+exports.myTourView = (req, res) => {
+  res.status(200).render('tours/myTours');
+}

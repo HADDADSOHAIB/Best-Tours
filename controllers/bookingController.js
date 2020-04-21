@@ -1,8 +1,6 @@
 const Tour=require('./../models/tourModel');
 const Booking=require('./../models/bookingModel');
 const catchAsync = require('./../utils/catchAsync');
-const factory=require('./handlerFactory');
-const AppError=require('./../utils/appError');
 const Email=require('./../utils/email');
 const stripe = require('stripe')('sk_test_hE2iOItUacnaA3fEOI3ip9zp00gjGoK4w0');
 
@@ -34,15 +32,14 @@ exports.getCheckoutSession = catchAsync( async(req, res, next) => {
 
 exports.createBookingCheckout  = (req, res, next) => {
   const { tour, user, price, tourName } = req.query;
- 
   if(!tour || !user || !price){
     next();
   }
   else{
     let email = new Email(JSON.parse(user),`${req.protocol}://${req.get('host')}/my-tours`,{ tourName });
-
     Booking.create({tour, user: JSON.parse(user)._id , price }, function (err, response) {
       if (err){
+        console.log(err);
         email.sendTourNotBooked();
       }
       else {

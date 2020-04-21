@@ -51,7 +51,6 @@ const insertLoadedData = () => {
   axios.get('/api/v1/tours')
   .then( response => {
     const responseData = response.data.data.data;
-    console.log(responseData);
 
     const loader = document.querySelector('.overview .loader');
     loader.parentElement.removeChild(loader);
