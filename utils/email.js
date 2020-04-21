@@ -54,4 +54,8 @@ module.exports = class Email {
     async sendTourBooked(){
         await this.send('tourBooked', 'Congratulation, your tour is booked successfully');
     }
+
+    async sendTourNotBooked(){
+        await this.send('tourNotBooked', 'Tour Not Booked, Contact Us');
+    }
 }
