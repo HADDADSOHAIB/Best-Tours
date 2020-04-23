@@ -7,10 +7,11 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-primary
     ul.navbar-nav.mr-auto
       li.nav-item
         a.nav-link(href="/") All Tours
+      - if(user){
+        li.nav-item
+          a.nav-link(href="/my-tours") My Tours
+      - }
       
-      li.nav-item
-        a.nav-link(href="/my-tours") My Tours
-
     ul.navbar-nav.mr-4
       - if(!user){
         li.nav-item
