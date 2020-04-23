@@ -40,6 +40,7 @@ const userRouter=require('./routes/userRoute');
 const reviewRouter=require('./routes/reviewRoute');
 const viewRouter = require('./routes/viewRouter');
 const bookingRouter = require('./routes/bookingRouter');
+const authController = require('./controllers/authController');
 //cors enabling
 app.use(cors());
 

@@ -29,6 +29,13 @@ block mainpage
             div
             div
             div
+          - if(user){
+            .booking.text-center
+              button.btn.btn-primary#book-tour.my-3 Book Tour Now
+          - }else{
+            .booking.text-center
+              a(href="/signin"): button.btn.btn-primary.my-3 Sign In to book the Tour
+          -}
     
     #map
       .loader.d-flex.mx-auto.tour
@@ -43,8 +50,14 @@ block mainpage
           div
           div
       #pagination-container.justify-content-center.d-flex
-      .booking.text-center
-        button.btn.btn-primary#book-tour.my-3 Book Tour Now
+      
+      - if(user){
+        .booking.text-center
+          button.btn.btn-primary#book-tour.my-3 Book Tour Now
+      - }else{
+        .booking.text-center
+          a(href="/signin"): button.btn.btn-primary.my-3 Sign In to book the Tour
+      -}
 
 
 append scripts

@@ -79,16 +79,17 @@ exports.protect=catchAsync(async (req,res,next)=>{
 
 exports.isLoggedIn=catchAsync(async (req,res,next)=>{
     let token = req.cookies.token_user;
+    console.log(token);
+    
     if(token){
         const decoded=await promisify(jwt.verify)(token,process.env.JWT_SECRET);
         const freshUser=await User.findById(decoded.id);
         if(!freshUser || freshUser.changedPasswordAfter(decoded.iat)) next();
         
         res.locals.user=freshUser;
+        console.log("this the user");
+        console.log(freshUser);
         next();
-    }
-    else{
-        res.redirect(401,`${req.protocol}://${req.get('host')}/`);
     }
     next();
 });

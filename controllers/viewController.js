@@ -12,7 +12,9 @@ exports.overviewView = (req, res) => {
 };
 
 exports.tourDetailsView = (req, res) => {
-  res.status(200).render('tours/tourDetails', { slug: req.params.slug });
+  res.status(200).render('tours/tourDetails', {
+    slug: req.params.slug
+  });
 };
 
 exports.forgotPasswordView = (req, res) => {

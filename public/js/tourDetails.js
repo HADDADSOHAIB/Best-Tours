@@ -80,6 +80,7 @@ const tourInformation = (tour) => `
 const tourDescription = (tour) => `
   <div class="tour-description-details my-3">
     <p>${tour.description}</p>
+    
   </div>
 `
 const mapBox = locations => {
