@@ -16,7 +16,6 @@ const createCookie = (name, value, days) => {
 
 const submit = (e) =>{
   e.preventDefault();
-  console.log("hi");
   const alertMessage = (msg, status) =>{
     return `<div class="alert alert-${status} alert-dismissible fade show" role="alert">
               ${msg}

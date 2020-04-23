@@ -1,0 +1,11 @@
+.tour-booked {
+  min-height: 82vh;
+}
+
+.tour-booked .card {
+  max-width: 540px;
+}
+
+.tour-booked .card-text {
+  text-align: justify;
+}

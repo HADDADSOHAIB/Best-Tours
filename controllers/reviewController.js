@@ -4,18 +4,18 @@ Tour=require('./../models/tourModel');
 AppError=require('./../utils/appError')
 const factory=require('./handlerFactory');
 
-// exports.getReviewsOfTour=catchAsync(async (req,res,next)=>{
-//     const tourId=req.params.tourId;
-//     const tour=await Tour.findById(tourId);
-//     if(!tour) next(new AppError('There is no tour with the provided Id',400));
-//     const reviews= await Review.find({tour:tourId}).select('-__v');
-//     res.status(200).json({
-//         status:'success',
-//         data:{
-//             reviews
-//         }
-//     });
-// });
+exports.getReviewsOfTour=catchAsync(async (req,res,next)=>{
+    const tourId=req.params.tourId;
+    const tour=await Tour.findById(tourId);
+    if(!tour) next(new AppError('There is no tour with the provided Id',400));
+    const reviews= await Review.find({tour:tourId}).select('-__v');
+    res.status(200).json({
+        status:'success',
+        data:{
+            reviews
+        }
+    });
+});
 
 exports.setTourUserIds=(req,res,next)=>{
     if(!req.body.tour) req.body.tour=req.params.tourId;

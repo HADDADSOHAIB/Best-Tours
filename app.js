@@ -10,7 +10,9 @@ const xss=require('xss-clean');
 const hpp=require('hpp');
 const path = require('path');
 var cors = require('cors')
-var cookieParser = require('cookie-parser')
+
+app.enable('trust proxy');
+const cookieParser = require('cookie-parser')
 
 if(process.env.NODE_ENV==='development') app.use(morgan('dev'));
 
@@ -37,13 +39,15 @@ const tourRouter=require('./routes/tourRoute');
 const userRouter=require('./routes/userRoute');
 const reviewRouter=require('./routes/reviewRoute');
 const viewRouter = require('./routes/viewRouter');
-
+const bookingRouter = require('./routes/bookingRouter');
+const authController = require('./controllers/authController');
 //cors enabling
 app.use(cors());
 
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/reviews', reviewRouter);
+app.use('/api/v1/bookings', bookingRouter);
 app.use('/', viewRouter);
 
 app.all('*',(req,res,next) => next(new AppError(`can't find ${req.originalUrl} on this server`,404)));

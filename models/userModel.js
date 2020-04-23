@@ -78,6 +78,7 @@ userSchema.methods.changedPasswordAfter=function(jwtTimestamp){
 userSchema.methods.createPasswordRestToken=function(){
     const restToken=crypto.randomBytes(32).toString('hex');
     this.passwordRestToken=crypto.createHash('sha256').update(restToken).digest('hex');
+
     this.passwordRestExpires=Date.now()+10*60*1000;
 
     return restToken;

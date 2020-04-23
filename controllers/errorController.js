@@ -13,6 +13,7 @@ module.exports=(err, req, res, next)=>{
     }
 
     const handelDuplicateFieldsDB=err=>{
+        console.dir(err);
         const value=err.errmsg.match(/(["'])(?:\\.|[^\\])*?\1/);
         const message=`Duplicate fields value: ${value[0]} Please use another value`;
         return new AppError(message,400);
