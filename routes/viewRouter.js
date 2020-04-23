@@ -17,7 +17,8 @@ router.get('/',
   viewController.overviewView
 );
 
-// protect this later
+router.use(authController.protectView);
+
 router.get('/tour-booked/:tourId', viewController.tourBookedView);
 router.get('/me', viewController.meView);
 router.get('/my-tours', viewController.myTourView);

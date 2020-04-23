@@ -79,7 +79,6 @@ exports.protect=catchAsync(async (req,res,next)=>{
 
 exports.isLoggedIn=catchAsync(async (req,res,next)=>{
     let token = req.cookies.token_user;
-    console.log(token);
     
     if(token){
         const decoded=await promisify(jwt.verify)(token,process.env.JWT_SECRET);
@@ -87,11 +86,17 @@ exports.isLoggedIn=catchAsync(async (req,res,next)=>{
         if(!freshUser || freshUser.changedPasswordAfter(decoded.iat)) next();
         
         res.locals.user=freshUser;
-        console.log("this the user");
-        console.log(freshUser);
         next();
     }
     next();
+});
+
+exports.protectView=catchAsync(async (req,res,next)=>{
+    if(res.locals.user){
+        next();
+    }else{
+       res.redirect(401,`${req.protocol}://${req.get('host')}/`);
+    }
 });
 
 exports.restrictTo=(...roles)=>{
