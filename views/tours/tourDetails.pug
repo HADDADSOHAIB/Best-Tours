@@ -32,6 +32,11 @@ block mainpage
           - if(user){
             .booking.text-center
               button.btn.btn-primary#book-tour.my-3 Book Tour Now
+            .d-flex.justify-content-center
+              .m-3.p-3.credit-card.d-flux.text-center.border.border-danger
+                p.font-weight-bold Use the following credit card for testing purposes:
+                p.font-weight-bold Card number: 4242 4242 4242 42424
+                p.font-weight-bold MM / YY: 02/22    CVC: 222
           - }else{
             .booking.text-center
               a(href="/signin"): button.btn.btn-primary.my-3 Sign In to book the Tour
@@ -54,6 +59,11 @@ block mainpage
       - if(user){
         .booking.text-center
           button.btn.btn-primary#book-tour.my-3 Book Tour Now
+        .d-flex.justify-content-center
+          .m-3.p-3.credit-card.d-flux.text-center.border.border-danger
+            p.font-weight-bold Use the following credit card for testing purposes:
+            p.font-weight-bold Card number: 4242 4242 4242 42424
+            p.font-weight-bold MM / YY: 02/22    CVC: 222
       - }else{
         .booking.text-center
           a(href="/signin"): button.btn.btn-primary.my-3 Sign In to book the Tour
