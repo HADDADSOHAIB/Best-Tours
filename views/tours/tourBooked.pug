@@ -1,0 +1,31 @@
+extends ../layouts/base.pug
+
+block append header
+  link(rel='stylesheet' href='/css/tour-booked.css')
+
+block mainpage
+  .tour-booked(data-tourid= tourId)
+    .container-fluid
+      .card.p-0.m-3.col-12.col-sm-6.col-md-4.mr-auto.ml-auto
+        .row.no-gutters
+          .col-md-4#image
+            .loader.mr-auto.ml-auto
+              div
+              div
+              div
+      
+          .col-md-8
+            .card-body
+              .loader.mr-auto.ml-auto
+                div
+                div
+                div
+              p.card-text Thank you for booking the tour, great moments and amazing memories are waiting for you. Once we receive your payement confirmation from our partner (Stripe Inc) we will send you an email to inform you that your booking is successfull.
+              .btn-group
+                a(href='/'): button.btn.btn-outline-primary Home Page
+                a(href='/my-tours'): button.btn.btn-outline-success.ml-2 My Tours
+              
+
+append scripts
+  script(src='/js/tour-booked.js')
+       

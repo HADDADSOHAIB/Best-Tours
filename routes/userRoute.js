@@ -6,12 +6,15 @@ const authController=require('../controllers/authController');
 router.post('/signup',authController.signup);
 router.post('/login',authController.login);
 router.post('/forgotPassword',authController.forgotPassword);
-router.patch('/restPassword/:token',authController.restPassword);
+router.patch('/resetPassword/:token',authController.restPassword);
 router.use(authController.protect);
 router.patch('/updateMyPassword',authController.updatePassword);
-router.patch('/updateMe',userController.uploadUserPhoto,userController.updateMe);
+router.patch('/updateMe',
+    userController.uploadUserPhoto,
+    userController.resizeUserPhoto,
+    userController.updateMe);
 router.patch('/deleteMe',userController.deleteMe);
-router.route('/me').get(
+router.get('/me',
     userController.getMe,
     userController.getUser
 );
@@ -22,4 +25,3 @@ router.route('/:id').get(userController.getUser)
     .delete(userController.deleteUser);
 
 module.exports = router;
-

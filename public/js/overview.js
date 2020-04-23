@@ -1,6 +1,15 @@
 const tourCard = (tour) => `
   <div class="card col-lg-3 col-md-5 col-sm-11 m-3">
-    <img src="/img/tours/${tour.imageCover}" class="card-img-top" alt="...">
+    <div class="image">
+      <img src="/img/tours/${tour.imageCover}" class="card-img-top" alt="...">
+      <div class="layer">
+        <div class="details">
+          <a href="/tour/${tour.slug}">
+            <button type="button" class="btn btn-primary">Details</button>
+          </a>
+        </div>
+      </div>
+    </div>
     <div class="card-body">
       <h5 class="card-title font-weight-bolder">${tour.name}</h5>
       <p class="card-text">${tour.summary}</p>
@@ -26,8 +35,15 @@ const tourCard = (tour) => `
         </div>
       </div>
     </div>
-    <div class="card-footer">
-      <small class="text-muted">Last updated 3 mins ago</small>
+    <div class="card-footer justify-content-center d-flex">
+      <div class=" col-6 p-0">
+        <i class="fas fa-money-check-alt"></i>
+        $${tour.price}/pers
+      </div>
+      <div class=" col-6 p-0">
+        <i class="far fa-star"></i>
+        ${tour.ratingsAverge.toFixed(1)} rating
+      </div>
     </div>
   </div>`;
 
@@ -35,16 +51,23 @@ const insertLoadedData = () => {
   axios.get('/api/v1/tours')
   .then( response => {
     const responseData = response.data.data.data;
-    console.log(responseData);
 
     const loader = document.querySelector('.overview .loader');
     loader.parentElement.removeChild(loader);
 
     responseData.forEach(el =>{
       el.startDate = new Date(el.startDates[0]).toLocaleDateString('en-US',{ day: 'numeric', month: 'short', year: 'numeric' });
+      const card = document.querySelector('.overview .row').insertAdjacentHTML('beforeend',tourCard(el));
+    });
+    
+    const cards = document.querySelectorAll('.overview .card');
+    cards.forEach(card => {
+      let layer = card.querySelector('.layer');
+      layer.style.display = 'none';
 
-      document.querySelector('.overview .row')
-        .insertAdjacentHTML('beforeend',tourCard(el));
+      let image = card.querySelector('.image');
+      image.addEventListener('mouseenter', () =>layer.style.display = 'flex');
+      image.addEventListener('mouseleave', () => layer.style.display = 'none');
     });
   })
   .catch(error => {

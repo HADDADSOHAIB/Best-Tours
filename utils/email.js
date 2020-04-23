@@ -1,23 +1,61 @@
 const nodemailer=require('nodemailer');
+const pug = require('pug');
+const htmlToText = require('html-to-text');
 
-const sendEmail=async options=>{
-    const transpoter=nodemailer.createTransport({
-        host:process.env.EMAIL_HOST,
-        port:process.env.EMAIL_PORT,
-        auth:{
-            user:process.env.EMAIL_USERNAME,
-            pass:process.env.EMAIL_PASSWORD
-        }
-    });
-
-    const mailOptions={
-        from:'Haddad Sohaib <dev.haddad@gmail.com>',
-        to:options.email,
-        subject:options.subject,
-        text:options.message
+module.exports = class Email {
+    constructor(user, url, options = {}){
+        this.to = user.email;
+        this.firstName = user.name.split(' ')[0];
+        this.url = url;
+        this.from = 'Best Tours Agency | CEO Sohaib Haddad <dev.haddad@gmail.com>'
+        this.options = options;
     }
 
-    await transpoter.sendMail(mailOptions);
-}
+    createTransport(){
+        return nodemailer.createTransport({
+            service: 'gmail',
+            auth:{
+                user: 'dev.haddad@gmail.com',
+                pass: process.env.EMAILP
+            }
+        });
+    }
 
-module.exports=sendEmail;
+    async send(templete, subject){
+        const html = pug.renderFile(`${__dirname}/../views/emails/${templete}.pug`,
+            {
+                firstName: this.firstName,
+                url: this.url,
+                subject,
+                options: this.options
+            });
+
+        const mailOptions={
+            from: this.from,
+            to:this.to,
+            subject,
+            html,
+            text: htmlToText.fromString(html)
+        }
+        
+        this.createTransport().sendMail(mailOptions)
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
+    }
+
+    async sendWelcome(){
+        await this.send('welcome', 'welcome to the best tours family');
+    }
+
+    async sendPasswordRest(){
+        await this.send('passwordReset', 'Rest your password, valid for 10min!!');
+    }
+
+    async sendTourBooked(){
+        await this.send('tourBooked', 'Congratulation, your tour is booked successfully');
+    }
+
+    async sendTourNotBooked(){
+        await this.send('tourNotBooked', 'Tour Not Booked, Contact Us');
+    }
+}

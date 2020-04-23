@@ -1,5 +1,3 @@
-
-
 const username = document.querySelector('#username');
 const email = document.querySelector('#email');
 const password = document.querySelector('#password');
@@ -25,8 +23,6 @@ const validateUsername = e => {
     if(notice_element) notice_element.parentElement.removeChild(notice_element);
   }
 }
-
-username.addEventListener('keyup', validateUsername);
 
 const validateEmail = e => {
   let is_exit = !!e.target.value.trim()
@@ -60,8 +56,6 @@ const validateEmail = e => {
     if(notice_valid_email_element) notice_valid_email_element.parentElement.removeChild(notice_valid_email_element);
   }
 }
-
-email.addEventListener('keyup', validateEmail);
 
 const validatePassword = e => {
   let is_exit = !!e.target.value.trim()
@@ -98,8 +92,6 @@ const validatePassword = e => {
   validatePasswordConfirmation();
 }
 
-password.addEventListener('keyup', validatePassword);
-
 const validatePasswordConfirmation = (e = null) => {
   let value = (e ? e.target.value : password_confirmation.value);
   let is_valid = value === password.value;
@@ -121,8 +113,6 @@ const validatePasswordConfirmation = (e = null) => {
   }
 }
 
-password_confirmation.addEventListener('keyup', validatePasswordConfirmation)
-
 const createCookie = (name, value, days) => {
   var expires;
   if (days) {
@@ -136,17 +126,13 @@ const createCookie = (name, value, days) => {
   document.cookie = name + "=" + value + expires + "; path=/";
 }
 
+password.addEventListener('keyup', validatePassword);
+password_confirmation.addEventListener('keyup', validatePasswordConfirmation)
+email.addEventListener('keyup', validateEmail);
+username.addEventListener('keyup', validateUsername);
+
 const submit = (e) =>{
   e.preventDefault();
-
-  const alertMessage = (msg, status) =>{
-    return `<div class="alert alert-${status} alert-dismissible fade show" role="alert">
-              ${msg}
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>`
-  }
 
   let valid = email.value && username.value && password && password_confirmation && !document.querySelector('.notice');
   if(valid){
@@ -175,4 +161,4 @@ const submit = (e) =>{
   }
 }
 
-document.querySelector('button[type="submit"]').addEventListener('click', submit);
+document.querySelector('.signup button[type="submit"]').addEventListener('click', submit);

@@ -1,0 +1,27 @@
+:root {
+  --primary: #0275d8;
+}
+
+.my-tours .card {
+  padding: 0;
+}
+
+.my-tours .image img {
+  object-fit: cover;
+}
+
+.my-tours .tour-detail {
+  color: var(--primary);
+}
+
+.my-tours .card i {
+  color: var(--primary);
+}
+
+footer {
+  margin-top: auto;
+}
+
+.my-tours {
+  min-height: 82vh;
+}

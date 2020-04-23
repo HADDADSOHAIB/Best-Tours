@@ -1,0 +1,77 @@
+extends ../layouts/base.pug
+
+block append header
+  script(src='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js')
+  link(href='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css' rel='stylesheet')
+  link(rel='stylesheet' href='/css/pagination.css')
+  link(rel='stylesheet' href='/css/tourDetails.css')
+
+block mainpage
+  .tour-details( data-slug= slug )
+    .d-flex.justify-content-center.carousel-container
+      .loader.tour
+        div
+        div
+        div
+    
+    .container-fluid
+      .row
+        .col-12.col-md-6.d-flex.align-items-center.flex-column.my-3
+          h3.tour-information-title.mt-3 Tour Information
+          .loader.tour
+            div
+            div
+            div
+      
+        .col-12.col-md-6.d-flex.align-items-center.flex-column.my-3
+          h3.mt-3.tour-description-title Tour Description
+          .loader.tour
+            div
+            div
+            div
+          - if(user){
+            .booking.text-center
+              button.btn.btn-primary.book-tour.my-3 Book Tour Now
+            .d-flex.justify-content-center
+              .m-3.p-3.credit-card.d-flux.text-center.border.border-danger
+                p.font-weight-bold Use the following credit card for testing purposes:
+                p.font-weight-bold Card number: 4242 4242 4242 42424
+                p.font-weight-bold MM / YY: 02/22    CVC: 222
+          - }else{
+            .booking.text-center
+              a(href="/signin"): button.btn.btn-primary.my-3 Sign In to book the Tour
+          -}
+    
+    #map
+      .loader.d-flex.mx-auto.tour
+        div
+        div
+        div
+    .container-fluid
+      h3.my-3.text-center.reviews-title Reviews
+      .row.tour-reviews.d-flex.justify-content-center#data-container
+        .loader.tour.mx-auto
+          div
+          div
+          div
+      #pagination-container.justify-content-center.d-flex
+      
+      - if(user){
+        .booking.text-center
+          button.btn.btn-primary.book-tour.my-3 Book Tour Now
+        .d-flex.justify-content-center
+          .m-3.p-3.credit-card.d-flux.text-center.border.border-danger
+            p.font-weight-bold Use the following credit card for testing purposes:
+            p.font-weight-bold Card number: 4242 4242 4242 42424
+            p.font-weight-bold MM / YY: 02/22    CVC: 222
+      - }else{
+        .booking.text-center
+          a(href="/signin"): button.btn.btn-primary.my-3 Sign In to book the Tour
+      -}
+
+
+append scripts
+  script(src="https://js.stripe.com/v3/")
+  script(src='/js/pagination.js')
+  script(src='/js/tourDetails.js')
+       
