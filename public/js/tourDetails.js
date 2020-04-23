@@ -162,7 +162,6 @@ axios.get(`/api/v1/tours/slug/${slug}`)
 
     mapBox(tour.locations);
 
-    // pagination library integration
     function templating(data) {
       let html = '';
       $.each(data, function(index, item){
@@ -174,9 +173,8 @@ axios.get(`/api/v1/tours/slug/${slug}`)
         dataSource: tour.reviews,
         pageSize: 3,
         callback: function(data, pagination) {
-            // template method of yourself
-            let html = templating(data);
-            $('#data-container').html(html);
+          let html = templating(data);
+          $('#data-container').html(html);
         }
     });
     tourId = tour._id;
@@ -184,12 +182,18 @@ axios.get(`/api/v1/tours/slug/${slug}`)
   .catch(error => {
     console.dir(error);
   });
-
+const bookBtns = document.querySelectorAll('.book-tour');
 const createBookingSession = () => {
+  bookBtns.forEach(btn=> btn.innerText = 'Processing ...');
+  bookBtns.forEach(btn=> btn.disabled = true);
   const stripe = Stripe('pk_test_9NzwckxxlcYFvwEQyQAJPsb000t73CznzF');
   axios.get(`/api/v1/bookings/checkout-session/${tourId}`).then(res => {
     stripe.redirectToCheckout({ sessionId: res.data.session.id });
-  }).catch(err => console.dir(err)); 
+  }).catch(err => {
+    console.dir(err);
+    bookBtns.forEach(btn=> btn.innerText = 'Error, try again later');
+    bookBtns.forEach(btn=> btn.disabled = false);
+  }); 
 }
 
-document.getElementById('book-tour').addEventListener('click', createBookingSession);
+bookBtns.forEach(btn=> btn.addEventListener('click', createBookingSession));
