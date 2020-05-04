@@ -13,10 +13,10 @@ module.exports = class Email {
 
     createTransport(){
         return nodemailer.createTransport({
-            service: 'gmail',
+            service: 'sendgrid',
             auth:{
-                user: 'dev.haddad@gmail.com',
-                pass: process.env.EMAILP
+                user: process.env.SENDGRID_USERNAME,
+                pass: process.env.SENDGRID_PASSWORD
             }
         });
     }
