@@ -1,10 +1,17 @@
 # Best-Tours
 
-A tour agency web application, where clients can browse the available tours and make reservations.
+A tour agency web application, where clients can browse the available tours and make reservations. Build ad a server-side render application using the Pug templating engine and payment are handled by the Stripe API.
 
 ## Live demo
 
 [heroku live site](https://best-tours.herokuapp.com/)
+
+![start](/public/img/readme-imgs/1.png)
+![start](/public/img/readme-imgs/2.png)
+![start](/public/img/readme-imgs/3.png)
+![start](/public/img/readme-imgs/4.png)
+![start](/public/img/readme-imgs/5.png)
+![start](/public/img/readme-imgs/6.png)
 
 ### Usage
 
