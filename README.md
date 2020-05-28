@@ -1,6 +1,6 @@
 # Best-Tours
 
-A tour agency web application, where client can browse the available tour and make reservations.
+A tour agency web application, where clients can browse the available tours and make reservations.
 
 ## Live demo
 
