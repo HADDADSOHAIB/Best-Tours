@@ -1,6 +1,6 @@
 # Best-Tours
 
-A tour agency web application, where clients can browse the available tours and make reservations. Build ad a server-side render application using the Pug templating engine and payment are handled by the Stripe API.
+A tour agency web application, where clients can browse the available tours and make reservations. Build as a server-side render application using the Pug templating engine and payment are handled by the Stripe API.
 
 ## Live demo
 
